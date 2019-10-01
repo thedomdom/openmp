@@ -24,4 +24,5 @@ int critical() {
     printf("min: %d \n", array_min);
     printf("max: %d", array_max);
 
+    return(0);
 }
