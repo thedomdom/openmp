@@ -1,0 +1,2 @@
+# openmp
+Open MP Test
