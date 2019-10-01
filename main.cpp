@@ -9,4 +9,3 @@ int main() {
         printf("world(%d) \n", ID);
     }
 }
-#pragma clang diagnostic pop
