@@ -1,19 +1,23 @@
 #include <iostream>
 #include <omp.h>
+#include <cmath>
 
-static long num_steps = 100000;
+static long num_steps = 50000;
 double step;
 
 int main() {
     int i;
-    double x, pi, sum = 0.0;
+    double x, pi, sum = 0.0, d;
     step = 1.0 / (double) num_steps;
 
-    for (i = 0; i < num_steps; i++) {
-        x = (i + 0.5) * step;
-        sum = sum + 4.0 / (1.0 + x * x);
+#pragma omp parallel for reduction(+ : sum) private(i, x, d) shared(step), default(none)
+    for (i = 1; i <= (int) num_steps; i++) {
+        x = (i - 0.5) * step;
+        d = step * sqrt(1.0 - x * x);
+        sum = sum + d;
     }
 
-    pi = step * sum;
+    pi = 4 * sum;
+
     printf("%f", pi);
 }
