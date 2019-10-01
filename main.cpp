@@ -1,5 +1,4 @@
 #include <iostream>
-#include <omp.h>
 #include <cmath>
 
 static long num_steps = 50000;
