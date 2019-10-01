@@ -2,10 +2,24 @@
 #include <omp.h>
 
 int main() {
-#pragma omp parallel num_threads(4) default(none)
+#pragma omp parallel num_threads(3) default(none)
     {
-        int ID = omp_get_thread_num();
-        printf("hello(%d) ", ID);
-        printf("world(%d) \n", ID);
-    }
+#pragma omp single
+        {
+            printf("A ");
+#pragma omp task default(none)
+            {
+                printf("race ");
+            }
+#pragma omp task default(none)
+            {
+                printf("car ");
+            }
+#pragma omp taskwait
+            printf("is fun to watch ");
+        }
+    } // End of parallel region
+
+    printf("\n");
+    return (0);
 }
